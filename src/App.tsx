@@ -1,49 +1,79 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import { invoke } from '@tauri-apps/api/tauri';
-import './App.css';
+import { Button, Flex, Text } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { buttonsData } from './data/buttons';
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState('');
-  const [name, setName] = useState('');
+const App: React.FC = () => {
+  const [time, setTime] = useState<number>(0);
+  const [timerStart, setTimerStart] = useState<boolean>(false);
 
-  async function greet() {
-    setGreetMsg(await invoke('greet', { name }));
-  }
+  const toggleTimer = useCallback(() => {
+    setTimerStart(!timerStart);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timerStart) {
+        if (time > 0) {
+          setTime(time - 1);
+        } else if (time === 0) {
+          // TODO: Send notification to user.
+          clearInterval(interval);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timerStart, time]);
 
   return (
-    <div className='container'>
-      <h1>Welcome to Tauri!</h1>
-
-      <div className='row'>
-        <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-          <img src='/vite.svg' className='logo vite' alt='Vite logo' />
-        </a>
-        <a href='https://tauri.app' target='_blank' rel='noreferrer'>
-          <img src='/tauri.svg' className='logo tauri' alt='Tauri logo' />
-        </a>
-        <a href='https://reactjs.org' target='_blank' rel='noreferrer'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className='row'>
-        <div>
-          <input
-            id='greet-input'
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder='Enter a name...'
-          />
-          <button type='button' onClick={() => greet()}>
-            Greet
-          </button>
-        </div>
-      </div>
-      <p>{greetMsg}</p>
-    </div>
+    <Flex
+      flex={1}
+      background='gray.900'
+      height='100vh'
+      alignItems='center'
+      flexDirection='column'
+    >
+      <Text color='white' fontWeight='bold' marginTop='20' fontSize='35'>
+        Pomodoro Timer
+      </Text>
+      <Text fontWeight='bold' fontSize='7xl' color='white'>
+        {`${
+          Math.floor(time / 60) < 10
+            ? `0${Math.floor(time / 60)}`
+            : `${Math.floor(time / 60)}`
+        }:${time % 60 < 10 ? `0${time % 60}` : time % 60}`}
+      </Text>
+      <Flex>
+        <Button
+          width='7rem'
+          background='orange.500'
+          color='white'
+          _hover={{ background: 'orange.600' }}
+          _active={{ background: 'orange.800' }}
+          onClick={toggleTimer}
+        >
+          {!timerStart ? 'Start' : 'Pause'}
+        </Button>
+        {/* TODO: Add Button to reset timer */}
+      </Flex>
+      <Flex marginTop={10}>
+        {buttonsData.map(({ value, display }) => (
+          <Button
+            key={value}
+            marginX={4}
+            background='green.500'
+            _hover={{ background: 'green.600' }}
+            _active={{ background: 'green.800' }}
+            color='white'
+            onClick={() => {
+              setTimerStart(false);
+              setTime(value);
+            }}
+          >
+            {display}
+          </Button>
+        ))}
+      </Flex>
+    </Flex>
   );
-}
-
+};
 export default App;
