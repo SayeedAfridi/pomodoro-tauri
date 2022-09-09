@@ -1,6 +1,8 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { buttonsData } from './data/buttons';
+import { sendNotification } from '@tauri-apps/api/notification';
+import { ask } from '@tauri-apps/api/dialog';
 
 const App: React.FC = () => {
   const [time, setTime] = useState<number>(0);
@@ -10,13 +12,30 @@ const App: React.FC = () => {
     setTimerStart(!timerStart);
   }, []);
 
+  const triggerResetDialog = useCallback(async () => {
+    const shouldReset = await ask('Do you want to reset timer?', {
+      type: 'warning',
+      title: 'Promodoro Timer App',
+    });
+
+    if (shouldReset) {
+      setTime(900);
+      setTimerStart(false);
+    }
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStart) {
         if (time > 0) {
           setTime(time - 1);
         } else if (time === 0) {
-          // TODO: Send notification to user.
+          sendNotification({
+            title: `Time's up!`,
+            body: `Congrats on completing a session!🎉`,
+          });
+          setTime(900);
+          setTimerStart(false);
           clearInterval(interval);
         }
       }
@@ -53,13 +72,27 @@ const App: React.FC = () => {
         >
           {!timerStart ? 'Start' : 'Pause'}
         </Button>
-        {/* TODO: Add Button to reset timer */}
+        <Button
+          background='blue.500'
+          marginX={5}
+          color='white'
+          onClick={triggerResetDialog}
+          _hover={{ background: 'blue.600' }}
+          _active={{ background: 'blue.800' }}
+        >
+          Reset
+        </Button>
       </Flex>
-      <Flex marginTop={10}>
+      <Flex
+        marginX={8}
+        marginTop={6}
+        justifyContent='space-between'
+        flexWrap='wrap'
+      >
         {buttonsData.map(({ value, display }) => (
           <Button
             key={value}
-            marginX={4}
+            marginTop={4}
             background='green.500'
             _hover={{ background: 'green.600' }}
             _active={{ background: 'green.800' }}

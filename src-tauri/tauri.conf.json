@@ -6,12 +6,17 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "promodoro",
-    "version": "0.0.0"
+    "productName": "Promodoro",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "notification": {
+        "all": true
+      },
+      "dialog": {
+        "all": true
+      }
     },
     "bundle": {
       "active": true,
@@ -28,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.sayeed.promodoro",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,10 +60,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
-        "resizable": true,
-        "title": "promodoro",
-        "width": 800
+        "height": 550,
+        "resizable": false,
+        "title": "Promodoro",
+        "width": 480
       }
     ]
   }
