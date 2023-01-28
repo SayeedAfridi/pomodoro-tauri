@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "Promodoro",
-    "version": "0.1.0"
+    "productName": "pomodoro",
+    "version": "0.1.1"
   },
   "tauri": {
     "allowlist": {
@@ -33,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.sayeed.promodoro",
+      "identifier": "com.sayeed.pomodoro",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -62,7 +62,7 @@
         "fullscreen": false,
         "height": 550,
         "resizable": false,
-        "title": "Promodoro",
+        "title": "Pomodoro",
         "width": 480
       }
     ]

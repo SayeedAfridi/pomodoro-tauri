@@ -1,6 +1,6 @@
-<img src="https://github.com/SayeedAfridi/promodoro-tauri/raw/master/src-tauri/icons/icon.png" height="250px" width="250px" alt="app-icon" />
+<img src="https://github.com/SayeedAfridi/pomodoro-tauri/raw/master/src-tauri/icons/icon.png" height="250px" width="250px" alt="app-icon" />
 
-## Promodoro timer app
+## Pomodoro timer app
 
 ### Created With ❤️ &
 

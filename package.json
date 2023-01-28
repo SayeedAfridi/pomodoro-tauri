@@ -1,5 +1,5 @@
 {
-  "name": "promodoro",
+  "name": "pomodoro",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -60,12 +60,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SayeedAfridi/promodoro-tauri.git"
+    "url": "git+https://github.com/SayeedAfridi/pomodoro-tauri.git"
   },
-  "homepage": "https://github.com/SayeedAfridi/promodoro-tauri#readme",
+  "homepage": "https://github.com/SayeedAfridi/pomodoro-tauri#readme",
   "license": "MIT",
   "keywords": [
-    "promodoro",
+    "pomodoro",
     "tauri-app",
     "vite",
     "react",

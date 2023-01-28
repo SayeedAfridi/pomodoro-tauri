@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const triggerResetDialog = useCallback(async () => {
     const shouldReset = await ask('Do you want to reset timer?', {
       type: 'warning',
-      title: 'Promodoro Timer App',
+      title: 'Pomodoro Timer App',
     });
 
     if (shouldReset) {
