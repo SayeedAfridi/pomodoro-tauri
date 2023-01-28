@@ -33,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.sayeed.pomodoro",
+      "identifier": "dev.afridi1.pomodoro",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
